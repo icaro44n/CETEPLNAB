@@ -11,7 +11,6 @@ const modalDescricao = document.getElementById('modal-descricao');
 const menuToggle = document.getElementById('menu-toggle');
 const navMenu = document.getElementById('nav-menu');
 const themeToggle = document.getElementById('theme-toggle');
-const themeIcon = document.getElementById('theme-icon');
 let galeriaImagens = [];
 let indiceAtual = 0;
 let slideshowInterval = null;
@@ -85,21 +84,16 @@ function abrirModal(titulo, descricao) {
   cursoModal.classList.remove('hidden');
 }
 
-function fecharModal(event) {
-  if (!event || event.target.id === 'curso-modal') {
-    cursoModal.classList.add('hidden');
-    modalTitulo.textContent = '';
-    modalDescricao.textContent =Luiz Eduardo Magalhães';
-  }
+function fecharModal() {
+  cursoModal.classList.add('hidden');
+  modalTitulo.textContent = '';
+  modalDescricao.textContent = '';
 }
 
 function handleTeclado(event) {
   if (event.key === 'ArrowLeft') navegarGaleria(-1);
   if (event.key === 'ArrowRight') navegarGaleria(1);
-  if (event.key === 'Escape') {
-    fecharLightbox({ target: { id: 'fechar' } });
-    fecharModal();
-  }
+  if (event.key === 'Escape') fecharLightbox({ target: { id: 'fechar' } });
 }
 
 menuToggle.addEventListener('click', () => {
@@ -108,15 +102,12 @@ menuToggle.addEventListener('click', () => {
 
 themeToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark');
-  const isDark = document.body.classList.contains('dark');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  themeIcon.style.transform = isDark ? 'rotate(180deg)' : 'rotate(0deg)';
+  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
 });
 
 // Carregar tema salvo
 if (localStorage.getItem('theme') === 'dark') {
   document.body.classList.add('dark');
-  themeIcon.style.transform = 'rotate(180deg)';
 }
 
 // Inicializa a galeria com a classe correta
