@@ -6,36 +6,53 @@
   <title>CETEP LNAB - Alagoinhas</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 font-poppins text-gray-800">
-  <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white sticky top-0 z-50 shadow-lg">
-    <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between">
+<body class="bg-gray-100 font-poppins text-gray-800 transition-colors duration-300" id="theme-body">
+  <button id="theme-toggle" class="fixed top-4 right-4 z-50 p-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg" aria-label="Alternar modo escuro">
+    <svg id="theme-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+  </button>
+  <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white sticky top-0 z-40 shadow-lg">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
       <div class="flex items-center space-x-4">
-        <img src="Cetep.jpg" alt="Logo CETEP LNAB" class="w-24 h-24 rounded-full object-cover transform hover:scale-105 transition-transform duration-300" />
+        <img src="cetep.jpg" alt="Logo CETEP LNAB" class="w-20 h-20 rounded-full object-cover transform hover:scale-105 transition-transform duration-300" />
         <div>
-          <h1 class="text-3xl font-bold">CETEP LNAB - Alagoinhas</h1>
-          <p class="text-sm italic">Formando profissionais e cidadãos para o futuro</p>
+          <h1 class="text-2xl md:text-3xl font-bold">CETEP LNAB - Alagoinhas</h1>
+          <p class="text-sm italic hidden md:block">Formando profissionais e cidadãos para o futuro</p>
         </div>
       </div>
-      <nav class="mt-4 md:mt-0">
+      <button id="menu-toggle" class="md:hidden text-white text-2xl focus:outline-none" aria-label="Toggle menu">☰</button>
+      <nav id="nav-menu" class="hidden md:flex mt-4 md:mt-0 md:items-center">
         <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
-          <li><button onclick="mostrarSecao('sobre')" class="px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200" aria-label="Sobre Nós">Sobre Nós</button></li>
-          <li><button onclick="mostrarSecao('cursos')" class="px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200" aria-label="Cursos">Cursos</button></li>
-          <li><button onclick="mostrarSecao('projetos')" class="px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200" aria-label="Projetos">Projetos</button></li>
-          <li><button onclick="mostrarSecao('galeria')" class="px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200" aria-label="Galeria">Galeria</button></li>
-          <li><button onclick="mostrarSecao('contato')" class="px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200" aria-label="Contato">Contato</button></li>
+          <li><button onclick="mostrarSecao('hero')" class="nav-btn px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200" aria-label="Início">Início</button></li>
+          <li><button onclick="mostrarSecao('sobre')" class="nav-btn px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200" aria-label="Sobre Nós">Sobre Nós</button></li>
+          <li><button onclick="mostrarSecao('cursos')" class="nav-btn px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200" aria-label="Cursos">Cursos</button></li>
+          <li><button onclick="mostrarSecao('projetos')" class="nav-btn px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200" aria-label="Projetos">Projetos</button></li>
+          <li><button onclick="mostrarSecao('galeria')" class="nav-btn px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200" aria-label="Galeria">Galeria</button></li>
+          <li><button onclick="mostrarSecao('contato')" class="nav-btn px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200" aria-label="Contato">Contato</button></li>
         </ul>
       </nav>
     </div>
   </header>
   <main class="container mx-auto px-4 py-8">
-    <section id="sobre" class="secao active">
+    <section id="hero" class="secao active" data-aos="fade-up">
+      <div class="relative bg-cover bg-center h-96 rounded-lg shadow-lg" style="background-image: url('imagens/hero-bg.jpg')">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-blue-800/60 flex items-center justify-center">
+          <div class="text-center text-white">
+            <h2 class="text-4xl font-bold mb-4">Bem-vindo ao CETEP LNAB</h2>
+            <p class="text-lg mb-6">Transformando vidas através da educação profissional</p>
+            <button onclick="mostrarSecao('cursos')" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">Conheça Nossos Cursos</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="sobre" class="secao hidden" data-aos="fade-up">
       <h2 class="text-3xl font-semibold text-blue-800 mb-4">Sobre o CETEP LNAB</h2>
       <p class="mb-4">O Centro Territorial de Educação Profissional do Nordeste II (CETEP LNAB) é uma instituição pública de ensino técnico localizada em Alagoinhas - BA, com foco em educação profissional e tecnológica de qualidade.</p>
       <p class="mb-4">Desde sua fundação, o CETEP vem preparando jovens e adultos para o mercado de trabalho, promovendo inclusão, inovação e transformação social.</p>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div>
+        <div data-aos="fade-right">
           <h3 class="text-xl font-semibold text-blue-700">Missão</h3>
           <ul class="list-disc pl-5 space-y-2">
             <li>Oferecer educação profissional de qualidade, integrando teoria e prática;</li>
@@ -43,7 +60,7 @@
             <li>Contribuir para o desenvolvimento regional sustentável.</li>
           </ul>
         </div>
-        <div>
+        <div data-aos="fade-up">
           <h3 class="text-xl font-semibold text-blue-700">Visão</h3>
           <ul class="list-disc pl-5 space-y-2">
             <li>Ser referência em educação profissional no estado da Bahia;</li>
@@ -51,7 +68,7 @@
             <li>Fortalecer parcerias com o setor produtivo e a comunidade.</li>
           </ul>
         </div>
-        <div>
+        <div data-aos="fade-left">
           <h3 class="text-xl font-semibold text-blue-700">Valores</h3>
           <ul class="list-disc pl-5 space-y-2">
             <li>Ética e cidadania;</li>
@@ -61,19 +78,26 @@
         </div>
       </div>
     </section>
-    <section id="cursos" class="secao hidden">
+    <section id="cursos" class="secao hidden" data-aos="fade-up">
       <h2 class="text-3xl font-semibold text-blue-800 mb-4">Cursos Técnicos</h2>
       <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">Técnico em Informática</li>
-        <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">Técnico em Enfermagem</li>
-        <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">Técnico em Agropecuária</li>
-        <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">Técnico em Administração</li>
-        <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">Técnico em Análises Clínicas</li>
-        <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">Técnico em Edificações</li>
+        <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer" onclick="abrirModal('Técnico em Informática', 'Desenvolva habilidades em programação e tecnologia.')">Técnico em Informática</li>
+        <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer" onclick="abrirModal('Técnico em Enfermagem', 'Cuide da saúde com conhecimento prático.')">Técnico em Enfermagem</li>
+        <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer" onclick="abrirModal('Técnico em Agropecuária', 'Inove na agricultura sustentável.')">Técnico em Agropecuária</li>
+        <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer" onclick="abrirModal('Técnico em Administração', 'Gerencie negócios com eficiência.')">Técnico em Administração</li>
+        <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer" onclick="abrirModal('Técnico em Análises Clínicas', 'Realize diagnósticos precisos.')">Técnico em Análises Clínicas</li>
+        <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer" onclick="abrirModal('Técnico em Edificações', 'Projete e construa o futuro.')">Técnico em Edificações</li>
         <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">... e outros cursos conforme demanda regional</li>
       </ul>
+      <div id="curso-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onclick="fecharModal(event)">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-lg w-full">
+          <h3 id="modal-titulo" class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100"></h3>
+          <p id="modal-descricao" class="mb-4 text-gray-600 dark:text-gray-300"></p>
+          <button onclick="fecharModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Fechar</button>
+        </div>
+      </div>
     </section>
-    <section id="projetos" class="secao hidden">
+    <section id="projetos" class="secao hidden" data-aos="fade-up">
       <h2 class="text-3xl font-semibold text-blue-800 mb-4">Projetos e Extensão</h2>
       <p class="mb-4">O CETEP incentiva o desenvolvimento de projetos educacionais, sociais e científicos com participação ativa dos alunos e professores.</p>
       <ul class="list-disc pl-5 space-y-2">
@@ -83,9 +107,9 @@
         <li>Iniciativas de sustentabilidade e empreendedorismo</li>
       </ul>
     </section>
-    <section id="galeria" class="secao hidden">
+    <section id="galeria" class="secao hidden" data-aos="fade-up">
       <h2 class="text-3xl font-semibold text-blue-800 mb-4">Galeria</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 galeria">
         <img src="imagens/cetep1.jpg" alt="Evento CETEP 1" class="w-full h-48 object-cover rounded-lg cursor-pointer transform hover:scale-105 transition-transform duration-300" onclick="abrirLightbox(this.src, this.alt)">
         <img src="imagens/cetep2.jpg" alt="Evento CETEP 2" class="w-full h-48 object-cover rounded-lg cursor-pointer transform hover:scale-105 transition-transform duration-300" onclick="abrirLightbox(this.src, this.alt)">
         <img src="imagens/cetep3.jpg" alt="Evento CETEP 3" class="w-full h-48 object-cover rounded-lg cursor-pointer transform hover:scale-105 transition-transform duration-300" onclick="abrirLightbox(this.src, this.alt)">
@@ -103,26 +127,37 @@
         <span id="fechar" class="absolute top-4 right-4 text-white text-3xl cursor-pointer hover:text-blue-400 transition-colors" aria-label="Fechar lightbox">×</span>
         <button id="anterior" class="absolute left-4 text-white text-2xl hover:text-blue-400 transition-colors" onclick="navegarGaleria(-1)" aria-label="Imagem anterior">←</button>
         <button id="proximo" class="absolute right-4 text-white text-2xl hover:text-blue-400 transition-colors" onclick="navegarGaleria(1)" aria-label="Próxima imagem">→</button>
+        <button id="slideshow-toggle" class="absolute top-4 left-4 text-white text-lg hover:text-blue-400 transition-colors" onclick="toggleSlideshow()" aria-label="Iniciar slideshow">▶</button>
         <div id="lightbox-conteudo" class="max-w-4xl max-h-[80vh]"></div>
         <p id="lightbox-legenda" class="text-white mt-2 text-center"></p>
       </div>
     </section>
-    <section id="contato" class="secao hidden">
+    <section id="contato" class="secao hidden" data-aos="fade-up">
       <h2 class="text-3xl font-semibold text-blue-800 mb-4">Contato</h2>
-      <div class="bg-white p-6 rounded-lg shadow-md">
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-6">
         <p class="mb-2"><strong>Telefone:</strong> (75) 0000-0000</p>
-        <p class="mb-2"><strong>Email:</strong> <a href="mailto:cetepnlab@educacao.ba.gov.br" class="text-blue-600 hover:underline">cetepnlab@educacao.ba.gov.br</a></p>
-        <p class="mb-2"><strong>Instagram:</strong> <a href="https://www.instagram.com/cetepnlab/" target="_blank" class="text-blue-600 hover:underline">@cetepnlab</a></p>
+        <p class="mb-2"><strong>Email:</strong> <a href="mailto:cetepnlab@educacao.ba.gov.br" class="text-blue-600 hover:underline dark:text-blue-400">cetepnlab@educacao.ba.gov.br</a></p>
+        <p class="mb-2"><strong>Instagram:</strong> <a href="https://www.instagram.com/cetepnlab/" target="_blank" class="text-blue-600 hover:underline dark:text-blue-400">@cetepnlab</a></p>
         <p class="mb-2"><strong>Endereço:</strong> Alagoinhas - Bahia, Brasil</p>
-        <p><strong>WhatsApp:</strong> <a href="https://chat.whatsapp.com/EXEMPLO" target="_blank" class="text-blue-600 hover:underline">Grupo do CETEP</a></p>
+        <p><strong>WhatsApp:</strong> <a href="https://chat.whatsapp.com/EXEMPLO" target="_blank" class="text-blue-600 hover:underline dark:text-blue-400">Grupo do CETEP</a></p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-blue-700 dark:text-blue-300 mb-4">Envie uma Mensagem</h3>
+        <div class="space-y-4">
+          <input type="text" placeholder="Nome" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600" aria-label="Nome">
+          <input type="email" placeholder="Email" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600" aria-label="Email">
+          <textarea placeholder="Mensagem" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600" rows="4" aria-label="Mensagem"></textarea>
+          <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">Enviar</button>
+        </div>
       </div>
     </section>
   </main>
-  <footer class="bg-blue-800 text-white py-4">
+  <footer class="bg-blue-800 text-white py-4 dark:bg-gray-900">
     <div class="container mx-auto px-4 text-center">
       <p>© 2025 CETEP LNAB - Alagoinhas</p>
     </div>
   </footer>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
