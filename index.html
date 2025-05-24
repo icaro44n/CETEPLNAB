@@ -10,10 +10,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-100 font-poppins text-gray-800 transition-colors duration-300" id="theme-body">
-  <button id="theme-toggle" class="fixed top-4 right-4 z-50 p-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg" aria-label="Alternar modo escuro">
-    <svg id="theme-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
-  </button>
-  <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white sticky top-0 z-40 shadow-lg">
+  <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white sticky top-0 z-50 shadow-lg">
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
       <div class="flex items-center space-x-4">
         <img src="cetep.jpg" alt="Logo CETEP LNAB" class="w-20 h-20 rounded-full object-cover transform hover:scale-105 transition-transform duration-300" />
@@ -32,13 +29,16 @@
           <li><button onclick="mostrarSecao('galeria')" class="nav-btn px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200" aria-label="Galeria">Galeria</button></li>
           <li><button onclick="mostrarSecao('contato')" class="nav-btn px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200" aria-label="Contato">Contato</button></li>
         </ul>
+        <button id="theme-toggle" class="ml-4 p-2 rounded-full bg-blue-700 hover:bg-blue-600" aria-label="Alternar modo escuro">
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+        </button>
       </nav>
     </div>
   </header>
   <main class="container mx-auto px-4 py-8">
     <section id="hero" class="secao active" data-aos="fade-up">
       <div class="relative bg-cover bg-center h-96 rounded-lg shadow-lg" style="background-image: url('imagens/hero-bg.jpg')">
-        <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-blue-800/60 flex items-center justify-center">
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div class="text-center text-white">
             <h2 class="text-4xl font-bold mb-4">Bem-vindo ao CETEP LNAB</h2>
             <p class="text-lg mb-6">Transformando vidas através da educação profissional</p>
@@ -89,10 +89,10 @@
         <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer" onclick="abrirModal('Técnico em Edificações', 'Projete e construa o futuro.')">Técnico em Edificações</li>
         <li class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">... e outros cursos conforme demanda regional</li>
       </ul>
-      <div id="curso-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onclick="fecharModal(event)">
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-lg w-full">
-          <h3 id="modal-titulo" class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100"></h3>
-          <p id="modal-descricao" class="mb-4 text-gray-600 dark:text-gray-300"></p>
+      <div id="curso-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg max-w-lg w-full">
+          <h3 id="modal-titulo" class="text-xl font-semibold mb-4"></h3>
+          <p id="modal-descricao" class="mb-4"></p>
           <button onclick="fecharModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Fechar</button>
         </div>
       </div>
@@ -134,25 +134,25 @@
     </section>
     <section id="contato" class="secao hidden" data-aos="fade-up">
       <h2 class="text-3xl font-semibold text-blue-800 mb-4">Contato</h2>
-      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-6">
+      <div class="bg-white p-6 rounded-lg shadow-md mb-6">
         <p class="mb-2"><strong>Telefone:</strong> (75) 0000-0000</p>
-        <p class="mb-2"><strong>Email:</strong> <a href="mailto:cetepnlab@educacao.ba.gov.br" class="text-blue-600 hover:underline dark:text-blue-400">cetepnlab@educacao.ba.gov.br</a></p>
-        <p class="mb-2"><strong>Instagram:</strong> <a href="https://www.instagram.com/cetepnlab/" target="_blank" class="text-blue-600 hover:underline dark:text-blue-400">@cetepnlab</a></p>
+        <p class="mb-2"><strong>Email:</strong> <a href="mailto:cetepnlab@educacao.ba.gov.br" class="text-blue-600 hover:underline">cetepnlab@educacao.ba.gov.br</a></p>
+        <p class="mb-2"><strong>Instagram:</strong> <a href="https://www.instagram.com/cetepnlab/" target="_blank" class="text-blue-600 hover:underline">@cetepnlab</a></p>
         <p class="mb-2"><strong>Endereço:</strong> Alagoinhas - Bahia, Brasil</p>
-        <p><strong>WhatsApp:</strong> <a href="https://chat.whatsapp.com/EXEMPLO" target="_blank" class="text-blue-600 hover:underline dark:text-blue-400">Grupo do CETEP</a></p>
+        <p><strong>WhatsApp:</strong> <a href="https://chat.whatsapp.com/EXEMPLO" target="_blank" class="text-blue-600 hover:underline">Grupo do CETEP</a></p>
       </div>
-      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <h3 class="text-xl font-semibold text-blue-700 dark:text-blue-300 mb-4">Envie uma Mensagem</h3>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-blue-700 mb-4">Envie uma Mensagem</h3>
         <div class="space-y-4">
-          <input type="text" placeholder="Nome" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600" aria-label="Nome">
-          <input type="email" placeholder="Email" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600" aria-label="Email">
-          <textarea placeholder="Mensagem" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600" rows="4" aria-label="Mensagem"></textarea>
-          <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">Enviar</button>
+          <input type="text" placeholder="Nome" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" aria-label="Nome">
+          <input type="email" placeholder="Email" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" aria-label="Email">
+          <textarea placeholder="Mensagem" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" rows="4" aria-label="Mensagem"></textarea>
+          <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Enviar</button>
         </div>
       </div>
     </section>
   </main>
-  <footer class="bg-blue-800 text-white py-4 dark:bg-gray-900">
+  <footer class="bg-blue-800 text-white py-4">
     <div class="container mx-auto px-4 text-center">
       <p>© 2025 CETEP LNAB - Alagoinhas</p>
     </div>
