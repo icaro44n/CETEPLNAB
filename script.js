@@ -1,16 +1,29 @@
+AOS.init({ duration: 800, once: true });
+
 const secoes = document.querySelectorAll('.secao');
+const navButtons = document.querySelectorAll('.nav-btn');
 const lightbox = document.getElementById('lightbox');
 const lightboxConteudo = document.getElementById('lightbox-conteudo');
 const lightboxLegenda = document.getElementById('lightbox-legenda');
+const cursoModal = document.getElementById('curso-modal');
+const modalTitulo = document.getElementById('modal-titulo');
+const modalDescricao = document.getElementById('modal-descricao');
+const menuToggle = document.getElementById('menu-toggle');
+const navMenu = document.getElementById('nav-menu');
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
 let galeriaImagens = [];
 let indiceAtual = 0;
+let slideshowInterval = null;
 
 function mostrarSecao(id) {
   secoes.forEach(secao => {
     secao.classList.toggle('active', secao.id === id);
     secao.classList.toggle('hidden', secao.id !== id);
   });
+  navButtons.forEach(btn => btn.classList.toggle('active', btn.onclick.toString().includes(id)));
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (window.innerWidth < 768) navMenu.classList.add('hidden');
 }
 
 function abrirLightbox(src, alt) {
@@ -19,7 +32,7 @@ function abrirLightbox(src, alt) {
     alt: el.parentElement.tagName === 'VIDEO' ? alt : el.alt
   }));
   indiceAtual = galeriaImagens.findIndex(img => img.src === src);
-  if (indiceAtual === -1) indiceAtual = 0; // Fallback caso não encontre
+  if (indiceAtual === -1) indiceAtual = 0;
   atualizarLightbox();
   lightbox.classList.remove('hidden');
   document.addEventListener('keydown', handleTeclado);
@@ -39,6 +52,7 @@ function fecharLightbox(event) {
     lightbox.classList.add('hidden');
     lightboxConteudo.innerHTML = '';
     lightboxLegenda.textContent = '';
+    pararSlideshow();
     document.removeEventListener('keydown', handleTeclado);
   }
 }
@@ -48,10 +62,61 @@ function navegarGaleria(direcao) {
   atualizarLightbox();
 }
 
+function toggleSlideshow() {
+  if (slideshowInterval) {
+    pararSlideshow();
+  } else {
+    slideshowInterval = setInterval(() => navegarGaleria(1), 3000);
+    document.getElementById('slideshow-toggle').textContent = '⏸';
+  }
+}
+
+function pararSlideshow() {
+  if (slideshowInterval) {
+    clearInterval(slideshowInterval);
+    slideshowInterval = null;
+    document.getElementById('slideshow-toggle').textContent = '▶';
+  }
+}
+
+function abrirModal(titulo, descricao) {
+  modalTitulo.textContent = titulo;
+  modalDescricao.textContent = descricao;
+  cursoModal.classList.remove('hidden');
+}
+
+function fecharModal(event) {
+  if (!event || event.target.id === 'curso-modal') {
+    cursoModal.classList.add('hidden');
+    modalTitulo.textContent = '';
+    modalDescricao.textContent =Luiz Eduardo Magalhães';
+  }
+}
+
 function handleTeclado(event) {
   if (event.key === 'ArrowLeft') navegarGaleria(-1);
   if (event.key === 'ArrowRight') navegarGaleria(1);
-  if (event.key === 'Escape') fecharLightbox({ target: { id: 'fechar' } });
+  if (event.key === 'Escape') {
+    fecharLightbox({ target: { id: 'fechar' } });
+    fecharModal();
+  }
+}
+
+menuToggle.addEventListener('click', () => {
+  navMenu.classList.toggle('hidden');
+});
+
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  themeIcon.style.transform = isDark ? 'rotate(180deg)' : 'rotate(0deg)';
+});
+
+// Carregar tema salvo
+if (localStorage.getItem('theme') === 'dark') {
+  document.body.classList.add('dark');
+  themeIcon.style.transform = 'rotate(180deg)';
 }
 
 // Inicializa a galeria com a classe correta
