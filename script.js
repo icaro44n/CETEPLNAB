@@ -1,114 +1,65 @@
-AOS.init({ duration: 800, once: true });
+const galeriaImagens = [
+  { src: 'imagens/cetep1.jpg', caption: 'Laboratório de Informática' },
+  { src: 'imagens/cetep2.jpg', caption: 'Feira de Ciências 2024' },
+  { src: 'imagens/cetep3.jpg', caption: 'Aula de Agropecuária' },
+  { src: 'imagens/cetep4.jpg', caption: 'Formatura 2024' }
+];
+let currentImageIndex = 0;
 
-const secoes = document.querySelectorAll('.secao');
-const navButtons = document.querySelectorAll('.nav-btn');
-const lightbox = document.getElementById('lightbox');
-const lightboxConteudo = document.getElementById('lightbox-conteudo');
-const lightboxLegenda = document.getElementById('lightbox-legenda');
-const cursoModal = document.getElementById('curso-modal');
-const modalTitulo = document.getElementById('modal-titulo');
-const modalDescricao = document.getElementById('modal-descricao');
-const menuToggle = document.getElementById('menu-toggle');
-const navMenu = document.getElementById('nav-menu');
-const themeToggle = document.getElementById('theme-toggle');
-let galeriaImagens = [];
-let indiceAtual = 0;
-let slideshowInterval = null;
+document.querySelector('.menu-toggle').addEventListener('click', () => {
+  document.querySelector('nav ul').classList.toggle('active');
+});
 
-function mostrarSecao(id) {
-  secoes.forEach(secao => {
-    secao.classList.toggle('active', secao.id === id);
-    secao.classList.toggle('hidden', secao.id !== id);
-  });
-  navButtons.forEach(btn => btn.classList.toggle('active', btn.onclick.toString().includes(id)));
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  if (window.innerWidth < 768) navMenu.classList.add('hidden');
-}
-
-function abrirLightbox(src, alt) {
-  galeriaImagens = Array.from(document.querySelectorAll('.galeria img, .galeria video source')).map(el => ({
-    src: el.tagName === 'SOURCE' ? el.src : el.src,
-    alt: el.parentElement.tagName === 'VIDEO' ? alt : el.alt
-  }));
-  indiceAtual = galeriaImagens.findIndex(img => img.src === src);
-  if (indiceAtual === -1) indiceAtual = 0;
-  atualizarLightbox();
-  lightbox.classList.remove('hidden');
-  document.addEventListener('keydown', handleTeclado);
-}
-
-function atualizarLightbox() {
-  const { src, alt } = galeriaImagens[indiceAtual];
-  const ehVideo = src.endsWith('.mp4');
-  lightboxConteudo.innerHTML = ehVideo
-    ? `<video controls autoplay class="mx-auto"><source src="${src}" type="video/mp4">Seu navegador não suporta vídeos.</video>`
-    : `<img src="${src}" alt="${alt}" class="mx-auto">`;
-  lightboxLegenda.textContent = alt || 'Sem descrição';
+function abrirLightbox(index) {
+  currentImageIndex = index;
+  const lightbox = document.getElementById('lightbox');
+  const conteudo = document.getElementById('lightbox-conteudo');
+  const captionElement = document.getElementById('lightbox-caption');
+  conteudo.innerHTML = `<img src="${galeriaImagens[index].src}" alt="${galeriaImagens[index].caption}">`;
+  captionElement.textContent = galeriaImagens[index].caption;
+  lightbox.classList.add('active');
 }
 
 function fecharLightbox(event) {
   if (event.target.id === 'lightbox' || event.target.id === 'fechar') {
-    lightbox.classList.add('hidden');
-    lightboxConteudo.innerHTML = '';
-    lightboxLegenda.textContent = '';
-    pararSlideshow();
-    document.removeEventListener('keydown', handleTeclado);
+    document.getElementById('lightbox').classList.remove('active');
   }
 }
 
-function navegarGaleria(direcao) {
-  indiceAtual = (indiceAtual + direcao + galeriaImagens.length) % galeriaImagens.length;
-  atualizarLightbox();
+if (document.getElementById('lightbox')) {
+  document.getElementById('prev').addEventListener('click', () => {
+    currentImageIndex = (currentImageIndex - 1 + galeriaImagens.length) % galeriaImagens.length;
+    abrirLightbox(currentImageIndex);
+  });
+
+  document.getElementById('next').addEventListener('click', () => {
+    currentImageIndex = (currentImageIndex + 1) % galeriaImagens.length;
+    abrirLightbox(currentImageIndex);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('lightbox').classList.contains('active')) {
+      if (e.key === 'ArrowLeft') {
+        currentImageIndex = (currentImageIndex - 1 + galeriaImagens.length) % galeriaImagens.length;
+        abrirLightbox(currentImageIndex);
+      } else if (e.key === 'ArrowRight') {
+        currentImageIndex = (currentImageIndex + 1) % galeriaImagens.length;
+        abrirLightbox(currentImageIndex);
+      } else if (e.key === 'Escape') {
+        document.getElementById('lightbox').classList.remove('active');
+      }
+    }
+  });
 }
 
-function toggleSlideshow() {
-  if (slideshowInterval) {
-    pararSlideshow();
-  } else {
-    slideshowInterval = setInterval(() => navegarGaleria(1), 3000);
-    document.getElementById('slideshow-toggle').textContent = '⏸';
-  }
-}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
 
-function pararSlideshow() {
-  if (slideshowInterval) {
-    clearInterval(slideshowInterval);
-    slideshowInterval = null;
-    document.getElementById('slideshow-toggle').textContent = '▶';
-  }
-}
-
-function abrirModal(titulo, descricao) {
-  modalTitulo.textContent = titulo;
-  modalDescricao.textContent = descricao;
-  cursoModal.classList.remove('hidden');
-}
-
-function fecharModal() {
-  cursoModal.classList.add('hidden');
-  modalTitulo.textContent = '';
-  modalDescricao.textContent = '';
-}
-
-function handleTeclado(event) {
-  if (event.key === 'ArrowLeft') navegarGaleria(-1);
-  if (event.key === 'ArrowRight') navegarGaleria(1);
-  if (event.key === 'Escape') fecharLightbox({ target: { id: 'fechar' } });
-}
-
-menuToggle.addEventListener('click', () => {
-  navMenu.classList.toggle('hidden');
+document.querySelectorAll('.sobre-card, .curso-item, .projeto-card, .noticia-card, .depoimento-card, .galeria-item').forEach(card => {
+  observer.observe(card);
 });
-
-themeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-});
-
-// Carregar tema salvo
-if (localStorage.getItem('theme') === 'dark') {
-  document.body.classList.add('dark');
-}
-
-// Inicializa a galeria com a classe correta
-document.querySelector('#galeria .grid').classList.add('galeria');
